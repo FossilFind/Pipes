@@ -1,0 +1,18 @@
+modLoader="javafml"
+loaderVersion="[44,)"
+license="All rights reserved"
+#issueTrackerURL=""
+
+[[mods]]
+modId="pipes"
+version="${file.jarVersion}"
+displayName="Pipes"
+#updateJSONURL=""
+#displayURL=""
+logoFile="logo.png"
+credits=""
+authors="FossilFind"
+
+description='''
+Mod that provides item, fluid, and electricity pipes. It also allows other mods to add their own pipes.
+'''
