@@ -19,7 +19,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 @EventBusSubscriber(bus = Bus.FORGE)
 public class PipesEvents
 {
-	@SubscribeEvent
+	//@SubscribeEvent
 	public static void onRenderHighlightEvent(RenderHighlightEvent.Block event)
 	{
 		@SuppressWarnings("resource")

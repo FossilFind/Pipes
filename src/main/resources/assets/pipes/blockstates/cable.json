@@ -3,7 +3,7 @@
 	{
 		"":
 		{
-			"model": "pipes:block/test_cable"
+			"model": "pipes:block/cable"
 		}
 	}
 }
