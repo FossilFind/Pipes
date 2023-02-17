@@ -13,5 +13,5 @@ public class PipesItems
 {
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Pipes.MODID);
 	
-	public static final RegistryObject<Item> ITEM_PIPE = ITEMS.register("item_pipe", () -> new BlockItem(PipesBlocks.ITEM_PIPE.get(), new Item.Properties()));
+	public static final RegistryObject<Item> CABLE = ITEMS.register("cable", () -> new BlockItem(PipesBlocks.CABLE.get(), new Item.Properties()));
 }

@@ -1,7 +1,5 @@
 @echo off
 
-cd C:\Dev\Java\Pipes
-
 call gradlew eclipse
 
 del PipesClient.launch

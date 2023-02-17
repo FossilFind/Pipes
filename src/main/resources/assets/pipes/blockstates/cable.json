@@ -1,0 +1,9 @@
+{
+	"variants":
+	{
+		"":
+		{
+			"model": "pipes:block/test_cable"
+		}
+	}
+}
