@@ -1,6 +1,7 @@
 package org.duckdns.fossilfind.pipes;
 
 import org.duckdns.fossilfind.pipes.block.PipesBlocks;
+import org.duckdns.fossilfind.pipes.block.entity.PipesBlockEntities;
 import org.duckdns.fossilfind.pipes.item.PipesItems;
 
 import net.minecraftforge.fml.common.Mod;
@@ -17,5 +18,6 @@ public class Pipes
 		
 		PipesBlocks.BLOCKS.register(bus);
 		PipesItems.ITEMS.register(bus);
+		PipesBlockEntities.BLOCK_ENTITIES.register(bus);
 	}
 }
