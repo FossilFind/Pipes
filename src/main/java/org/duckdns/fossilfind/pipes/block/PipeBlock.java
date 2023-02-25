@@ -27,6 +27,10 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.items.IItemHandler;
 
 public class PipeBlock extends BaseEntityBlock
 {
@@ -39,9 +43,13 @@ public class PipeBlock extends BaseEntityBlock
 	
 	private static final Map<BlockState, VoxelShape> SHAPES = new HashMap<>();
 	
-	public PipeBlock()
+	public final Capability<?> capability;
+	
+	public PipeBlock(Capability<?> capability)
 	{
 		super(Properties.of(Material.METAL).noOcclusion());
+		
+		this.capability = capability;
 		
 		registerDefaultState(stateDefinition.any()
 				.setValue(NORTH, false)
@@ -73,14 +81,18 @@ public class PipeBlock extends BaseEntityBlock
 		}
 	}
 	
-	public static boolean connectsTo(BlockGetter level, BlockPos pos)
+	public boolean connectsTo(BlockGetter level, BlockPos pos, Direction direction)
 	{
-		return connectsTo(level.getBlockState(pos));
-	}
-	
-	public static boolean connectsTo(BlockState state)
-	{
-		return state.getBlock() == PipesBlocks.PIPE.get();
+		if(level.getBlockState(pos).getBlock() == PipesBlocks.PIPE.get())
+			return true;
+		
+		BlockEntity be = level.getBlockEntity(pos);
+		
+		if(be != null)
+			if(be.getCapability(capability, direction.getOpposite()).orElse(null) != null)
+				return true;
+		
+		return false;
 	}
 	
 	@Override
@@ -102,18 +114,18 @@ public class PipeBlock extends BaseEntityBlock
 		BlockGetter level = context.getLevel();
 		BlockPos pos = context.getClickedPos();
 		return super.getStateForPlacement(context)
-				.setValue(NORTH, connectsTo(level, pos.north()))
-				.setValue(EAST, connectsTo(level, pos.east()))
-				.setValue(SOUTH, connectsTo(level, pos.south()))
-				.setValue(WEST, connectsTo(level, pos.west()))
-				.setValue(UP, connectsTo(level, pos.above()))
-				.setValue(DOWN, connectsTo(level, pos.below()));
+				.setValue(NORTH, connectsTo(level, pos.north(), Direction.NORTH))
+				.setValue(EAST, connectsTo(level, pos.east(), Direction.EAST))
+				.setValue(SOUTH, connectsTo(level, pos.south(), Direction.SOUTH))
+				.setValue(WEST, connectsTo(level, pos.west(), Direction.WEST))
+				.setValue(UP, connectsTo(level, pos.above(), Direction.UP))
+				.setValue(DOWN, connectsTo(level, pos.below(), Direction.DOWN));
 	}
 	
 	@Override
 	public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos currentPos, BlockPos neighborPos)
 	{
-		return state.setValue(getConnectionProperty(direction), connectsTo(neighborState));
+		return state.setValue(getConnectionProperty(direction), connectsTo(level, neighborPos, direction));
 	}
 	
 	@Override

@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.function.Function;
 
 import org.duckdns.fossilfind.pipes.Pipes;
-import org.duckdns.fossilfind.pipes.block.entity.PipeBlockEntity;
 import org.duckdns.fossilfind.pipes.pipe.Connection;
 import org.duckdns.fossilfind.pipes.util.DirectionalArray;
 import org.jetbrains.annotations.NotNull;
@@ -90,7 +89,7 @@ public class PipeModel implements IUnbakedGeometry<PipeModel>
 		{
 			List<List<BakedQuad>> quads = new ArrayList<>();
 			
-			sideParts.replace(extraData.get(PipeBlockEntity.CONNECTIONS));
+			//sideParts.replace(extraData.get(PipeBlockEntity.CONNECTIONS));
 			
 			quads.add(base.getQuads(state, side, rand, extraData, renderType));
 			
